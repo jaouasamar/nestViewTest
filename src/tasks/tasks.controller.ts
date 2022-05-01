@@ -1,31 +1,32 @@
 import { Controller ,Get,Post,Put,Delete,Body,Param} from '@nestjs/common';
 import {CreateTaskDto} from './dto/create-task.dto'
 import { TasksService } from './tasks.service';
-import {Task} from './interfaces/task.interface'
+// import {Task} from './interfaces/task.interface'
+import { Task } from './task.entity';
 @Controller('tasks')
 export class TasksController {
     constructor(private readonly tasksService:TasksService){}
     @Get()
-    findAll():Task[]{
+    findAll(){
         return this.tasksService.findAll();
     }
 
     @Get(':id')
-    findOne(@Param('id') id):Task{
+    findOne(@Param('id') id){
         return this.tasksService.findOne(id);
     }
     @Post()
-    create(@Body() createItemDto:CreateTaskDto):string{
-        return `Name:${createItemDto.name} startTime:${createItemDto.startTime} endTime:${createItemDto.endTime}`
+    create(@Body() task:Task){
+        return this.tasksService.createTask(task)
     }
 
     @Delete(':id')
-    delete(@Param('id') id):string{
-return `taskDeleted${id}`
+    delete(@Param('id') id){
+return this.tasksService.deleteTask(id)
     }
 
     @Put(':id')
-    update(@Body() updateItemDto:CreateTaskDto , @Param('id') id):string{
-return `Update Task${id} - Name ${updateItemDto.name}`;
+    update(@Body() task:Task , @Param('id') id){
+return this.tasksService.updateTask(task)
     }
 }

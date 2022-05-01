@@ -1,16 +1,62 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+ <div class="container">
+<!-- <Header @add-task="AddTask"/> -->
+<Header @add-task="AddTask"/>
+<Tasks :tasks="tasks"/>
+ </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Header from './components/Header'
+import Tasks from './components/Tasks'
+import {server} from './utils/helper'
+import axios from "axios"
 export default {
   name: 'App',
   components: {
-    HelloWorld
+Header,
+Tasks,
+
+  },
+  data(){
+    return {
+      tasks:[]
+    }
+  },
+  methods:{
+    AddTask(task){
+   axios.post(`${server.baseURL}/api/tasks`,task).then(data=>this.tasks=[...this.tasks,task])
+getTasks();
+  
+      // this.tasks=[...this.tasks,task]
+    
+ 
+  },
+  },
+  created(){
+    // this.tasks=[
+    //   {
+    //     id:1,
+    //     text:'Periode1',
+    //     startTime:'10:45',
+    //     endTime:'12:30',
+    //   },
+    //   {
+    //     id:2,
+    //     text:'Periode2',
+    //     startTime:'12:30',
+    //     endTime:'13:15',
+    //   },
+    // ]
+    this.getTasks();
+  },
+  methods:{
+    getTasks(){
+      axios.get(`${server.baseURL}/api/tasks`).then(data=>this.tasks=data.data)
+    }
   }
+
 }
 </script>
 

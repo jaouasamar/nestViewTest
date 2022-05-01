@@ -1,31 +1,52 @@
 import { Injectable } from '@nestjs/common';
-import {Task} from './interfaces/task.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import {Task} from './task.entity'
 @Injectable()
 export class TasksService {
-private readonly tasks:Task[]=[
-    {
-        id:"1",
-        name:"Periode1",
-        startTime:"12:50",
-        endTime:"13:00",
-    },
-    {
-        id:"2",
-        name:"Periode2",
-        startTime:"14:50",
-        endTime:"15:00",
-    },
-    {
-        id:"3",
-        name:"Periode3",
-        startTime:"15:10",
-        endTime:"15:20",
-    }
-];
-findAll():Task[]{
-    return this.tasks;
+
+constructor(
+    @InjectRepository(Task)
+    private taskRepository: Repository<Task>
+){} 
+findAll():Promise<Task[]>{
+    return this.taskRepository.find();
 }
-findOne(id:string):Task{
-    return this.tasks.find(task=>task.id===id)
+async findOne(_id:number):Promise<Task[]>{
+    return await this.taskRepository.find({
+        select: ["name", "startTime", "endTime"],
+        where: [{ "id": _id }]
+    })
+}
+async updateTask(task: Task) {
+    this.taskRepository.save(task)
+}
+async createTask(task: Task) {
+    this.taskRepository.save(task)
+}
+
+async deleteTask(task: Task) {
+    this.taskRepository.delete(task);
 }
 }
+// private readonly tasks:Task[]=[
+//     {
+//         id:"1",
+//         name:"Periode1",
+//         startTime:"12:50",
+//         endTime:"13:00",
+//     },
+//     {
+//         id:"2",
+//         name:"Periode2",
+//         startTime:"14:50",
+//         endTime:"15:00",
+//     },
+//     {
+//         id:"3",
+//         name:"Periode3",
+//         startTime:"15:10",
+//         endTime:"15:20",
+//     }
+
+// ];
