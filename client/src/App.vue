@@ -1,6 +1,6 @@
 <template>
  <div class="container">
-<!-- <Header @add-task="AddTask"/> -->
+
 <Header @add-task="AddTask"/>
 <Tasks :tasks="tasks"/>
  </div>
@@ -26,13 +26,16 @@ Tasks,
   },
   methods:{
     AddTask(task){
-   axios.post(`${server.baseURL}/api/tasks`,task).then(data=>this.tasks=[...this.tasks,task])
-getTasks();
-  
-      // this.tasks=[...this.tasks,task]
+      // console.log("post")
+   axios.post(`${server.baseURL}/api/tasks`,task)
+   this.getTasks()
+
     
  
   },
+    getTasks(){
+      axios.get(`${server.baseURL}/api/tasks`).then(data=>this.tasks=data.data)
+    }
   },
   created(){
     // this.tasks=[
@@ -51,11 +54,7 @@ getTasks();
     // ]
     this.getTasks();
   },
-  methods:{
-    getTasks(){
-      axios.get(`${server.baseURL}/api/tasks`).then(data=>this.tasks=data.data)
-    }
-  }
+
 
 }
 </script>
