@@ -7,7 +7,7 @@
  
     
    </div>
-   <p>duration</p>
+   <p>duration:{{getDiff(task.startTime,task.endTime)}}</p>
   
 </div>
 
@@ -26,12 +26,9 @@ export default{
     },
     methods: {
         getDiff: function (endTime,startTime) {
-            var diff = endTime- startTime;
-var hours   = Math.floor(diff / 3.6e6);
-var minutes = Math.floor((diff % 3.6e6) / 6e4);
-var seconds = Math.floor((diff % 6e4) / 1000);
-var duration = hours+":"+minutes+":"+seconds;
-return duration
+        //   console.log(endTime)
+        //   console.log(startTime)
+
           },
     },
     
