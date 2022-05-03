@@ -81,7 +81,9 @@ export default {
       let d = new Date();
 
       this.startTime =
-        d.getHours() + ':' + d.getMinutes() ;
+       d.getHours() + ':' + d.getMinutes() ;
+
+      
 
       // console.log(this.startTime);
       return this.startTime;
