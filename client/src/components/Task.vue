@@ -32,6 +32,7 @@ return (this.toSecondTransform(endTime))-(this.toSecondTransform(startTime))
         toSecondTransform:function(time){
 var t = time.slice(0,2)*3600+ time.slice(3,5)*60
 // console.log(t)
+this.$emit("total-time",t);
 return t
            
         },
@@ -45,6 +46,7 @@ return t
     if (hours   < 10) {hours   = "0"+hours;}
     if (minutes < 10) {minutes = "0"+minutes;}
     if (seconds < 10) {seconds = "0"+seconds;}
+    
     return hours+':'+minutes+':'+seconds; // Return is HH : MM : SS  
       }
 

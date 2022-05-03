@@ -79,9 +79,19 @@ export default {
     },
     onStart() {
       let d = new Date();
+      let hours;
+      let minutes;
+if(d.getHours()<10)
+hours="0"+d.getHours()
+else
+hours=d.getHours();
+if(d.getMinutes()<10)
+minutes="0"+d.getMinutes()
+else
+minutes=d.getMinutes();
 
       this.startTime =
-       d.getHours() + ':' + d.getMinutes() ;
+      hours + ':' +minutes;
 
       
 
@@ -90,7 +100,17 @@ export default {
     },
     getEndTime() {
       let d = new Date();
-      let endTime = d.getHours() + ':' + d.getMinutes() ;
+      let hours;
+      let minutes;
+if(d.getHours()<10)
+hours="0"+d.getHours()
+else
+hours=d.getHours();
+if(d.getMinutes()<10)
+minutes="0"+d.getMinutes()
+else
+minutes=d.getMinutes();
+      let endTime = hours + ':' + minutes ;
 
       // console.log(endTime);
 
